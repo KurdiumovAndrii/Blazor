@@ -1,0 +1,27 @@
+@page "/counter"
+@using Client.Data
+<h1>Person</h1>
+
+<p><b>Enter you Person</b></p>
+  <p><input @bind="FirstName" placeholder="FirstName" ></p>
+  <p><input @bind="SecondName" placeholder="SecondName"></p>
+  <p><input @bind="Age" placeholder="Age"></p>
+
+<button class="btn btn-primary" @onclick="SetPerson">Submit</button>
+<p role="status">Current count: @FirstName</p>
+
+@code {
+    
+
+    private string FirstName{ get; set; }
+   
+    private string SecondName{ get; set; }
+ 
+    private int Age{ get; set; }
+    
+    public void SetPerson()
+    {
+        Client.Pages.FetchData.GetPerson set = new Client.Pages.FetchData.GetPerson();
+        set.setter(FirstName,SecondName,Age);
+    }
+}

@@ -1,0 +1,62 @@
+﻿@page "/fetchdata"
+
+@using Client.Data
+@inject DataBaseService ForecastService
+
+<h1>Data</h1>
+
+<p>This component demonstrates when people added</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date Added</th>
+                <th>First Name</th>
+                <th>Second Name</th>
+                 <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@FirstName</td>
+                    <td>@SecondName</td>
+                    <td>@Age</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+    
+       
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+        string FirstName = "";
+        public string SecondName = "";
+        public int Age = 0;
+    public class GetPerson : FetchData
+    {
+    
+      public void setter(string first, string second, int age)
+      {
+           FirstName=first;
+           SecondName = second;
+           Age = age;
+
+      }
+    }
+}
