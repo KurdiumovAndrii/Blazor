@@ -1,18 +1,26 @@
 using System;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Client.Data
 {
     public class DataBaseService
     {
+        public event Action OnChange;
 
-        public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate)
-        {
-            return Task.FromResult(Enumerable.Range(1,1).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now,
-            }).ToArray());
+        public List<Person> persons = new List<Person>() {
+            { 
+                new Person() {
+                    Date = DateTime.Now,
+                    FirstName = "Andrii",
+                    SecondName = "Kurdiumov",
+                    Age = 17
+                }
+            }
+        };
+
+        public void AddPerson(Person person) {
+            persons.Add(person);
+            OnChange?.Invoke();
         }
     }
 }

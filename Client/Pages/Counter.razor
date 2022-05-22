@@ -1,5 +1,7 @@
 @page "/counter"
 @using Client.Data
+
+@inject DataBaseService PersonService
 <h1>Person</h1>
 
 <p><b>Enter you Person</b></p>
@@ -21,7 +23,10 @@
     
     public void SetPerson()
     {
-        Client.Pages.FetchData.GetPerson set = new Client.Pages.FetchData.GetPerson();
-        set.setter(FirstName,SecondName,Age);
+      PersonService.persons.Add(new Person() {
+          FirstName = FirstName,
+          SecondName = SecondName,
+          Age = Age
+        });
     }
 }
